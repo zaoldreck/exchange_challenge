@@ -22,19 +22,37 @@ defmodule OrderBook do
     end
   end
 
+  def group_by_price(records) do
+    records
+    |> Enum.group_by(& &1.price)
+    |> Enum.map(fn {price, records} ->
+      %{price: price, volume: Enum.reduce(records, 0, fn item, acc -> item.volume + acc end)}
+    end)
+  end
+
   @spec list(atom | %{:buy => any, :sell => any, optional(any) => any}) :: %OrderBook{
           buy: list,
           sell: list
         }
   def list(order_book) do
+    buy =
+      order_book.buy
+      |> OrderBook.group_by_price()
+      |> Enum.sort_by(& &1.price, :desc)
+
+    sell =
+      order_book.sell
+      |> OrderBook.group_by_price()
+      |> Enum.sort_by(& &1.price, :asc)
+
     %OrderBook{
-      buy: Enum.sort_by(order_book.buy, & &1.price, :desc),
-      sell: Enum.sort_by(order_book.sell, & &1.price, :asc)
+      buy: buy,
+      sell: sell
     }
   end
 
   def list_order(json) do
     Enum.reduce(json, OrderBook.new(), &OrderBook.update_order/2)
-    |> list
+    |> OrderBook.list()
   end
 end
