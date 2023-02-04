@@ -32,4 +32,9 @@ defmodule OrderBook do
       sell: Enum.sort_by(order_book.sell, & &1.price, :asc)
     }
   end
+
+  def list_order(json) do
+    Enum.reduce(json, OrderBook.new(), &OrderBook.update_order/2)
+    |> list
+  end
 end
