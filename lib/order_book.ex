@@ -54,5 +54,6 @@ defmodule OrderBook do
   def list_order(json) do
     Enum.reduce(json, OrderBook.new(), &OrderBook.update_order/2)
     |> OrderBook.list()
+    |> MatchingEngine.process_orders()
   end
 end
