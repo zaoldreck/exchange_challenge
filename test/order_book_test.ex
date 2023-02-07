@@ -199,62 +199,63 @@ defmodule OrderBookTest do
     assert expect_output == order_book |> Mappable.to_map(keys: :strings)
   end
 
-  # test "Input Example 4" do
-  #   expect_output =
-  #     Jason.decode!("""
-  #     {
-  #       "buy": [
-  #         {
-  #           "price": 100.01,
-  #           "volume": 1.6
-  #         },
-  #         {
-  #           "price": 91.33,
-  #           "volume": 1.8
-  #         },
-  #         {
-  #           "price": 90.15,
-  #           "volume": 0.15
-  #         },
-  #         {
-  #           "price": 89.394,
-  #           "volume": 4.3
-  #         }
-  #       ],
-  #       "sell": [
-  #         {
-  #           "price": 100.013,
-  #           "volume": 2.2
-  #         },
-  #         {
-  #           "price": 100.15,
-  #           "volume": 3.8
-  #         }
-  #       ]
-  #     }
-  #     """)
+  test "Input Example 4" do
+    expect_output =
+      Jason.decode!("""
+      {
+        "buy": [
+          {
+            "price": 100.01,
+            "volume": 1.6
+          },
+          {
+            "price": 91.33,
+            "volume": 1.8
+          },
+          {
+            "price": 90.15,
+            "volume": 0.15
+          },
+          {
+            "price": 89.394,
+            "volume": 4.3
+          }
+        ],
+        "sell": [
+          {
+            "price": 100.013,
+            "volume": 2.2
+          },
+          {
+            "price": 100.15,
+            "volume": 3.8
+          }
+        ]
+      }
+      """)
 
-  #   input_4 = """
-  #   {
-  #     "orders": [
-  #        {"command": "sell", "price": 100.003, "amount": 2.4},
-  #        {"command": "buy", "price": 90.394, "amount": 3.445},
-  #        {"command": "buy", "price": 89.394, "amount": 4.3},
-  #        {"command": "sell", "price": 100.013, "amount": 2.2},
-  #        {"command": "buy", "price": 90.15, "amount": 1.305},
-  #        {"command": "buy", "price": 90.394, "amount": 1.0},
-  #        {"command": "sell", "price": 90.394, "amount": 2.2},
-  #        {"command": "sell", "price": 90.15, "amount": 3.4},
-  #        {"command": "buy", "price": 91.33, "amount": 1.8},
-  #        {"command": "buy", "price": 100.01, "amount": 4.0},
-  #        {"command": "sell", "price": 100.15, "amount": 3.8}
-  #     ]
-  #   }
-  #   """
+    input_4 = """
+    {
+      "orders": [
+         {"command": "sell", "price": 100.003, "amount": 2.4},
+         {"command": "buy", "price": 90.394, "amount": 3.445},
+         {"command": "buy", "price": 89.394, "amount": 4.3},
+         {"command": "sell", "price": 100.013, "amount": 2.2},
+         {"command": "buy", "price": 90.15, "amount": 1.305},
+         {"command": "buy", "price": 90.394, "amount": 1.0},
+         {"command": "sell", "price": 90.394, "amount": 2.2},
+         {"command": "sell", "price": 90.15, "amount": 3.4},
+         {"command": "buy", "price": 91.33, "amount": 1.8},
+         {"command": "buy", "price": 100.01, "amount": 4.0},
+         {"command": "sell", "price": 100.15, "amount": 3.8}
+      ]
+    }
+    """
 
-  #   order_book = OrderBook.json_to_struct(input_4)
-  #   |> OrderBook.list_order
+    order_book =
+      OrderBook.json_to_struct(input_4)
+      |> OrderBook.list_order()
 
-  #   assert expect_output == order_book |> Mappable.to_map(keys: :strings)
-  # end
+    assert expect_output == order_book |> Mappable.to_map(keys: :strings)
+  end
 end
