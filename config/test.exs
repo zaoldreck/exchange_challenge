@@ -6,7 +6,7 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :exchange_challenge, ExchangeChallenge.Repo,
-  username: "air",
+  username: System.get_env("DATABASE_USERNAME") || "postgresql",
   password: "",
   hostname: "localhost",
   database: "exchange_challenge_test#{System.get_env("MIX_TEST_PARTITION")}",
