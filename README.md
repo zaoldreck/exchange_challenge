@@ -1,5 +1,8 @@
 # ExchangeChallenge
 
+## Setup Environment
+export DATABASE_USERNAME=database_name
+
 For Exchange Code Challenges
 run:
 ```
